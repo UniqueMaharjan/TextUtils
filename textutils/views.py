@@ -14,7 +14,7 @@ def analyze(request):
     fullcaps = (request.POST.get('fullcaps','off'))
     newlineremover = (request.POST.get('newlineremover','off'))
     extraspaceremover = (request.POST.get('extraspaceremover','off'))
-    charcount = (request.GET.get('charcount','off'))
+    charcount = (request.POST.get('charcount','off'))
     #check with checkbox is on
     if removepunc == "on":
         puncuations = '''!()-{}[];:'"/\,<>.?@#^&*$~_'''
@@ -53,13 +53,13 @@ def analyze(request):
                   'analyzed_text': analyzed}
         djtext = analyzed
 
-    # if charcount == "on":
-    #     analyzed = 0
-    #     for char in djtext:
-    #         if not char ==' ':
-    #             analyzed += 1
-    #     params = {'purpose': 'Character count',
-    #               'analyzed_text': analyzed}
+    if charcount == "on":
+        analyzed = 0
+        for char in djtext:
+            if not char ==' ':
+                analyzed += 1
+        params = {'purpose': 'Character count',
+                  'analyzed_text': analyzed}
 
         # return render(request, 'analyze.html', params)
     if (removepunc != 'on' and fullcaps != 'on' and newlineremover != 'on' and extraspaceremover != 'on' and charcount != 'on'):
